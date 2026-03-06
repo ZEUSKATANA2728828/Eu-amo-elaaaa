@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Treino Amaldiçoado</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- CURSOR TRAIL -->
+  <div id="cursor-trail"></div>
+
+  <!-- PARTICLES -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- HEADER -->
+  <header id="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">呪</span>
+        <span class="logo-text">TREINO <span class="logo-accent">AMALDIÇOADO</span></span>
+      </div>
+      <nav id="nav">
+        <ul>
+          <li><a href="#inicio" class="nav-link">Início</a></li>
+          <li><a href="#resistencia" class="nav-link">Resistência</a></li>
+          <li><a href="#shape" class="nav-link">Shape</a></li>
+          <li><a href="#luta" class="nav-link">Luta</a></li>
+          <li><a href="#rotina" class="nav-link">Rotina</a></li>
+          <li><a href="#dicas" class="nav-link">Dicas</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <ul>
+      <li><a href="#inicio" class="mobile-link">Início</a></li>
+      <li><a href="#resistencia" class="mobile-link">Resistência</a></li>
+      <li><a href="#shape" class="mobile-link">Shape</a></li>
+      <li><a href="#luta" class="mobile-link">Luta</a></li>
+      <li><a href="#rotina" class="mobile-link">Rotina</a></li>
+      <li><a href="#dicas" class="mobile-link">Dicas</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="hero-bg">
+      <div class="aura-ring aura-1"></div>
+      <div class="aura-ring aura-2"></div>
+      <div class="aura-ring aura-3"></div>
+      <div class="energy-lines"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge reveal">MODO TREINO ATIVADO</div>
+      <h1 class="hero-title reveal">
+        <span class="title-line">DESPERTE</span>
+        <span class="title-line accent-line">SUA ENERGIA</span>
+        <span class="title-line">E TREINE COMO</span>
+        <span class="title-line accent-line">UM LUTADOR.</span>
+      </h1>
+      <p class="hero-sub reveal">Condicionamento físico, shape e fundamentos de luta para iniciantes. Nenhuma desculpa. Apenas treino.</p>
+      <div class="hero-actions reveal">
+        <button class="btn-energy" id="start-btn">
+          <span class="btn-text">COMEÇAR TREINO</span>
+          <span class="btn-aura"></span>
+        </button>
+        <a href="#resistencia" class="btn-ghost">VER EXERCÍCIOS ↓</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="stat"><span class="stat-num">6</span><span class="stat-label">SEÇÕES</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num">15+</span><span class="stat-label">EXERCÍCIOS</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num">0</span><span class="stat-label">DESCULPAS</span></div>
+      </div>
+    </div>
+    <div class="hero-kanji">
+      <span>力</span>
+      <span>闘</span>
+      <span>魂</span>
+    </div>
+  </section>
+
+  <!-- TIMER BAR -->
+  <div class="timer-bar" id="timer-bar">
+    <div class="timer-inner">
+      <div class="timer-display">
+        <span class="timer-icon">⏱</span>
+        <span id="timer-display">00:00</span>
+      </div>
+      <div class="timer-controls">
+        <button id="timer-start" class="timer-btn">INICIAR</button>
+        <button id="timer-reset" class="timer-btn timer-btn-secondary">RESET</button>
+        <div class="series-counter">
+          <span>SÉRIE</span>
+          <button id="series-minus" class="series-btn">−</button>
+          <span id="series-count">1</span>
+          <button id="series-plus" class="series-btn">+</button>
+          <span>/ 3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESISTÊNCIA -->
+  <section id="resistencia" class="section">
+    <div class="section-bg-deco">
+      <span class="bg-kanji">抵</span>
+    </div>
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">MÓDULO 01</div>
+        <h2 class="section-title">TREINO DE <span class="accent">RESISTÊNCIA</span></h2>
+        <p class="section-desc">Construa sua base. Sem resistência, não há poder.</p>
+      </div>
+      <div class="cards-grid">
+
+        <div class="exercise-card reveal" data-delay="0">
+          <div class="card-glow"></div>
+          <div class="card-number">01</div>
+          <div class="card-icon">🤸</div>
+          <h3 class="card-title">POLICHINELO</h3>
+          <p class="card-desc">Ativa todo o corpo, eleva frequência cardíaca e prepara para o treino.</p>
+          <div class="card-stats">
+            <div class="stat-pill"><span>3</span> SÉRIES</div>
+            <div class="stat-pill accent-pill"><span>40</span> SEG</div>
+          </div>
+          <div class="card-bar"><div class="card-bar-fill" style="width:70%"></div></div>
+        </div>
+
+        <div class="exercise-card reveal" data-delay="100">
+          <div class="card-glow"></div>
+          <div class="card-number">02</div>
+          <div class="card-icon">🏃</div>
+          <h3 class="card-title">CORRIDA PARADA</h3>
+          <p class="card-desc">Simula corrida sem sair do lugar. Mantém ritmo cardíaco elevado.</p>
+          <div class="card-stats">
+            <div class="stat-pill"><span>3</span> SÉRIES</div>
+            <div class="stat-pill accent-pill"><span>1</span> MIN</div>
+          </div>
+          <div class="card-bar"><div class="card-bar-fill" style="width:90%"></div></div>
+        </div>
+
+        <div class="exercise-card reveal" data-delay="200">
+          <div class="card-glow"></div>
+          <div class="card-number">03</div>
+          <div class="card-icon">💥</div>
+          <h3 class="card-title">BURPEES</h3>
+          <p class="card-desc">O exercício completo. Trabalha força, explosão e resistência juntas.</p>
+          <div class="card-stats">
+            <div class="stat-pill"><span>3</span> SÉRIES</div>
+            <div class="stat-pill accent-pill"><span>10</span> REPS</div>
+          </div>
+          <div class="card-bar"><div class="card-bar-fill" style="width:100%"></div></div>
+        </div>
+
+        <div class="exercise-card reveal" data-delay="300">
+          <div class="card-glow"></div>
+          <div class="card-number">04</div>
+          <div class="card-icon">🧱</div>
+          <h3 class="card-title">PRANCHA</h3>
+          <p class="card-desc">Fortalece o core. Estabilidade é a base de todo lutador.</p>
+          <div class="card-stats">
+            <div class="stat-pill"><span>3</span> SÉRIES</div>
+            <div class="stat-pill accent-pill"><span>30</span> SEG</div>
+          </div>
+          <div class="card-bar"><div class="card-bar-fill" style="width:60%"></div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SHAPE -->
+  <section id="shape" class="section section-alt">
+    <div class="section-bg-deco">
+      <span class="bg-kanji">型</span>
+    </div>
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">MÓDULO 02</div>
+        <h2 class="section-title">TREINO DE <span class="accent">SHAPE</span></h2>
+        <p class="section-desc">Molde seu corpo. Cada repetição é uma vitória.</p>
+      </div>
+      <div class="cards-grid">
+
+        <div class="exercise-card shape-card reveal" data-delay="0">
+          <div class="card-glow purple-glow"></div>
+          <div class="card-number">01</div>
+          <div class="card-icon">💪</div>
+          <h3 class="card-title">FLEXÃO DE BRAÇO</h3>
+          <p class="card-desc">Peito, ombros e tríceps. Movimento fundamental de empurrão.</p>
+          <div class="card-stats">
+            <div class="stat-pill"><span>3</span> SÉRIES</div>
+            <div class="stat-pill purple-pill"><span>10–15</span> REPS</div>
+          </div>
+          <div class="card-muscles">
+            <span class="muscle-tag">PEITO</span>
+            <span class="muscle-tag">OMBRO</span>
+            <span class="muscle-tag">TRÍCEPS</span>
+          </div>
+        </div>
+
+        <div class="exercise-card shape-card reveal" data-delay="100">
+          <div class="card-glow purple-glow"></div>
+          <div class="card-number">02</div>
+          <div class="card-icon">🦵</div>
+          <h3 class="card-title">AGACHAMENTO</h3>
+          <p class="card-desc">Rei dos exercícios. Quádriceps, glúteos e posterior da coxa.</p>
+          <div class="card-stats">
+            <div class="stat-pill"><span>3</span> SÉRIES</div>
+            <div class="stat-pill purple-pill"><span>20</span> REPS</div>
+          </div>
+          <div class="card-muscles">
+            <span class="muscle-tag">QUÁDRICEPS</span>
+            <span class="muscle-tag">GLÚTEOS</span>
+          </div>
+        </div>
+
+        <div class="exercise-card shape-card reveal" data-delay="200">
+          <div class="card-glow purple-glow"></div>
+          <div class="card-number">03</div>
+          <div class="card-icon">🔥</div>
+          <h3 class="card-title">ABDOMINAL</h3>
+          <p class="card-desc">Core de aço. O centro de toda potência e estabilidade.</p>
+          <div class="card-stats">
+            <div class="stat-pill"><span>3</span> SÉRIES</div>
+            <div class="stat-pill purple-pill"><span>20</span> REPS</div>
+          </div>
+          <div class="card-muscles">
+            <span class="muscle-tag">ABDÔMEN</span>
+            <span class="muscle-tag">OBLÍQUO</span>
+          </div>
+        </div>
+
+        <div class="exercise-card shape-card reveal" data-delay="300">
+          <div class="card-glow purple-glow"></div>
+          <div class="card-number">04</div>
+          <div class="card-icon">🧘</div>
+          <h3 class="card-title">PRANCHA LATERAL</h3>
+          <p class="card-desc">Oblíquos e estabilizadores. Equilíbrio de um lutador verdadeiro.</p>
+          <div class="card-stats">
+            <div class="stat-pill"><span>3</span> SÉRIES</div>
+            <div class="stat-pill purple-pill"><span>30</span> SEG</div>
+          </div>
+          <div class="card-muscles">
+            <span class="muscle-tag">OBLÍQUOS</span>
+            <span class="muscle-tag">CORE</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LUTA -->
+  <section id="luta" class="section">
+    <div class="section-bg-deco">
+      <span class="bg-kanji">闘</span>
+    </div>
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">MÓDULO 03</div>
+        <h2 class="section-title">FUNDAMENTOS DE <span class="accent">LUTA</span></h2>
+        <p class="section-desc">Antes de atacar, aprenda a se defender. Fundamentos são tudo.</p>
+      </div>
+
+      <div class="fight-grid">
+
+        <!-- POSIÇÃO -->
+        <div class="fight-block reveal" data-delay="0">
+          <div class="fight-block-header">
+            <span class="fight-num">I</span>
+            <h3>POSIÇÃO DE LUTA</h3>
+          </div>
+          <div class="fight-content">
+            <div class="stance-visual">
+              <div class="stick-figure">
+                <div class="sf-head"></div>
+                <div class="sf-body"></div>
+                <div class="sf-arm sf-arm-l"></div>
+                <div class="sf-arm sf-arm-r"></div>
+                <div class="sf-leg sf-leg-l"></div>
+                <div class="sf-leg sf-leg-r"></div>
+              </div>
+              <div class="stance-arrows">
+                <span class="arrow-label top-label">GUARDA ALTA</span>
+                <span class="arrow-label mid-label">CORPO DIAGONAL</span>
+                <span class="arrow-label bot-label">PÉ DIANTEIRO</span>
+              </div>
+            </div>
+            <ul class="fight-list">
+              <li><span class="list-dot">▸</span> Mãos na altura do rosto protegendo</li>
+              <li><span class="list-dot">▸</span> Corpo levemente de lado — menos área de alvo</li>
+              <li><span class="list-dot">▸</span> Uma perna à frente, outra atrás para equilíbrio</li>
+              <li><span class="list-dot">▸</span> Joelhos levemente flexionados, peso equilibrado</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- GOLPES -->
+        <div class="fight-block reveal" data-delay="150">
+          <div class="fight-block-header">
+            <span class="fight-num">II</span>
+            <h3>GOLPES BÁSICOS</h3>
+          </div>
+          <div class="fight-content">
+            <div class="combo-display" id="combo-display">
+              <span class="combo-idle">CLIQUE EM UM GOLPE</span>
+            </div>
+            <div class="strikes-list">
+              <button class="strike-btn" data-combo="JAB" data-desc="Soco rápido com a mão da frente. Distância e ritmo.">
+                <span class="strike-key">J</span> JAB
+              </button>
+              <button class="strike-btn" data-combo="DIRETO" data-desc="Soco potente com a mão de trás. Gira o quadril!">
+                <span class="strike-key">D</span> DIRETO
+              </button>
+              <button class="strike-btn" data-combo="JAB + DIRETO" data-desc="Combinação clássica. O começo de toda sequência de boxe.">
+                <span class="strike-key">J+D</span> COMBINAÇÃO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEFESA -->
+        <div class="fight-block reveal" data-delay="300">
+          <div class="fight-block-header">
+            <span class="fight-num">III</span>
+            <h3>DEFESA BÁSICA</h3>
+          </div>
+          <div class="fight-content">
+            <div class="defense-grid">
+              <div class="defense-item" id="def1">
+                <div class="defense-icon">↔</div>
+                <span>MOVER A CABEÇA</span>
+                <small>Desvio lateral para esquivar golpes</small>
+              </div>
+              <div class="defense-item" id="def2">
+                <div class="defense-icon">↙</div>
+                <span>PASSO ATRÁS</span>
+                <small>Recuar para fora do alcance do oponente</small>
+              </div>
+              <div class="defense-item" id="def3">
+                <div class="defense-icon">🛡</div>
+                <span>GUARDA ALTA</span>
+                <small>Punhos protegendo o rosto sempre</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ROTINA -->
+  <section id="rotina" class="section section-alt">
+    <div class="section-bg-deco">
+      <span class="bg-kanji">練</span>
+    </div>
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">MÓDULO 04</div>
+        <h2 class="section-title">ROTINA DE <span class="accent">TREINO</span></h2>
+        <p class="section-desc">Estrutura é poder. Siga o protocolo.</p>
+      </div>
+      <div class="routine-track reveal">
+        <div class="routine-step" data-step="1">
+          <div class="step-connector"></div>
+          <div class="step-circle">
+            <span class="step-icon">🔥</span>
+          </div>
+          <div class="step-content">
+            <div class="step-tag">FASE 01</div>
+            <h4>AQUECIMENTO</h4>
+            <p>Prepare as articulações e eleve o ritmo cardíaco gradualmente.</p>
+            <div class="step-time"><span>5</span> MINUTOS</div>
+          </div>
+        </div>
+
+        <div class="routine-step" data-step="2">
+          <div class="step-connector"></div>
+          <div class="step-circle active">
+            <span class="step-icon">⚡</span>
+          </div>
+          <div class="step-content">
+            <div class="step-tag">FASE 02</div>
+            <h4>TREINO PRINCIPAL</h4>
+            <p>Execute os exercícios de resistência e shape com máxima intensidade.</p>
+            <div class="step-time"><span>3–4</span> SÉRIES</div>
+          </div>
+        </div>
+
+        <div class="routine-step" data-step="3">
+          <div class="step-connector"></div>
+          <div class="step-circle">
+            <span class="step-icon">🏃</span>
+          </div>
+          <div class="step-content">
+            <div class="step-tag">FASE 03</div>
+            <h4>CARDIO</h4>
+            <p>Mantenha a intensidade. Corrida, polichinelos ou pular corda.</p>
+            <div class="step-time"><span>10</span> MINUTOS</div>
+          </div>
+        </div>
+
+        <div class="routine-step" data-step="4">
+          <div class="step-connector last-connector"></div>
+          <div class="step-circle">
+            <span class="step-icon">👊</span>
+          </div>
+          <div class="step-content">
+            <div class="step-tag">FASE 04</div>
+            <h4>SHADOWBOXING</h4>
+            <p>Pratique os golpes no ar. Técnica, ritmo e mentalidade de luta.</p>
+            <div class="step-time"><span>5</span> MINUTOS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DICAS -->
+  <section id="dicas" class="section">
+    <div class="section-bg-deco">
+      <span class="bg-kanji">知</span>
+    </div>
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">MÓDULO 05</div>
+        <h2 class="section-title">DICAS DO <span class="accent">MESTRE</span></h2>
+        <p class="section-desc">Sabedoria além do treino. Cuide do seu recipiente.</p>
+      </div>
+      <div class="tips-grid">
+
+        <div class="tip-card reveal" data-delay="0">
+          <div class="tip-glow"></div>
+          <div class="tip-icon">💧</div>
+          <h4>HIDRATAÇÃO</h4>
+          <p>Beba água antes, durante e após o treino. Desidratação reduz performance em até 30%.</p>
+        </div>
+
+        <div class="tip-card reveal" data-delay="100">
+          <div class="tip-glow"></div>
+          <div class="tip-icon">😴</div>
+          <h4>SONO</h4>
+          <p>O músculo cresce enquanto você dorme. 7–9 horas de sono é tão importante quanto treinar.</p>
+        </div>
+
+        <div class="tip-card reveal" data-delay="200">
+          <div class="tip-glow"></div>
+          <div class="tip-icon">📅</div>
+          <h4>CONSISTÊNCIA</h4>
+          <p>Treinar 3x por semana todos os meses supera qualquer treino intenso e irregular.</p>
+        </div>
+
+        <div class="tip-card reveal" data-delay="300">
+          <div class="tip-glow"></div>
+          <div class="tip-icon">⚠️</div>
+          <h4>NÃO EXAGERE</h4>
+          <p>Overtraining atrasa resultados. Descanso é parte do protocolo, não preguiça.</p>
+        </div>
+
+        <div class="tip-card reveal" data-delay="400">
+          <div class="tip-glow"></div>
+          <div class="tip-icon">🔥</div>
+          <h4>SEMPRE AQUEÇA</h4>
+          <p>5 minutos de aquecimento previnem semanas de lesão. Nunca pule essa etapa.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-aura"></div>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-icon">呪</span>
+        <span>TREINO AMALDIÇOADO</span>
+      </div>
+      <p class="footer-quote">"Treine seu corpo e mente todos os dias."</p>
+      <div class="footer-kanji">力 · 闘 · 魂 · 心</div>
+      <a href="https://github.com" class="footer-link" target="_blank" rel="noopener">
+        ⬡ VER NO GITHUB
+      </a>
+      <p class="footer-copy">© 2025 Treino Amaldiçoado — Nenhum poder vem sem sacrifício.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+          </html>
