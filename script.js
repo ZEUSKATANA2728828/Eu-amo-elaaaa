@@ -403,12 +403,207 @@ document.querySelector('.logo').addEventListener('click', () => {
 
 /* ── INIT LOG ── */
 console.log(`
-  ████████╗██████╗ ███████╗██╗███╗   ██╗ ██████╗ 
-     ██╔══╝██╔══██╗██╔════╝██║████╗  ██║██╔═══██╗
-     ██║   ██████╔╝█████╗  ██║██╔██╗ ██║██║   ██║
-     ██║   ██╔══██╗██╔══╝  ██║██║╚██╗██║██║   ██║
-     ██║   ██║  ██║███████╗██║██║ ╚████║╚██████╔╝
-     ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝ ╚═════╝ 
-  
   TREINO AMALDIÇOADO — Sistema iniciado. Nenhuma desculpa.
 `);
+
+/* =============================================
+   BOSS DA SEMANA
+   ============================================= */
+const BOSSES = [
+  {
+    name: "SUKUNA, O AMALDIÇOADO",
+    desc: "Rei das maldições. Poder infinito, vontade inabalável. Para derrotá-lo você precisa completar 5 treinos esta semana.",
+    weakness: "CONSISTÊNCIA",
+    rank: "RANK S",
+    hp: 500,
+    damage: 100
+  },
+  {
+    name: "MAHITO, O OCIOSO",
+    desc: "Transforma almas e corpos. Sua fraqueza é a disciplina diária que ele nunca teve.",
+    weakness: "DISCIPLINA",
+    rank: "RANK A",
+    hp: 400,
+    damage: 80
+  },
+  {
+    name: "GETO, O HEREGE",
+    desc: "Estrategista frio e calculista. Só respeita quem treina com inteligência e consistência.",
+    weakness: "FOCO TOTAL",
+    rank: "RANK S+",
+    hp: 600,
+    damage: 120
+  },
+  {
+    name: "HANAMI, DA FLORESTA",
+    desc: "Força da natureza em forma de maldição. Derrote-o mostrando que sua força supera a dele.",
+    weakness: "RESISTÊNCIA",
+    rank: "RANK ESPECIAL",
+    hp: 700,
+    damage: 140
+  }
+];
+
+// Pick boss based on week number
+function getWeekNumber() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+  const week1 = new Date(d.getFullYear(), 0, 4);
+  return 1 + Math.round(((d.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+}
+
+function getCurrentBoss() {
+  const week = getWeekNumber();
+  return BOSSES[week % BOSSES.length];
+}
+
+function getBossState() {
+  const key = `boss_week_${getWeekNumber()}`;
+  try {
+    return JSON.parse(localStorage.getItem(key)) || { hits: 0, days: [] };
+  } catch { return { hits: 0, days: [] }; }
+}
+
+function saveBossState(state) {
+  const key = `boss_week_${getWeekNumber()}`;
+  localStorage.setItem(key, JSON.stringify(state));
+}
+
+function renderBoss() {
+  const boss = getCurrentBoss();
+  const state = getBossState();
+  const maxHits = boss.hp / boss.damage;
+  const currentHp = Math.max(0, boss.hp - state.hits * boss.damage);
+  const hpPct = (currentHp / boss.hp) * 100;
+  const defeated = currentHp <= 0;
+
+  document.getElementById('boss-name').textContent = boss.name;
+  document.getElementById('boss-desc').textContent = boss.desc;
+  document.getElementById('boss-weakness').textContent = boss.weakness;
+  document.getElementById('boss-rank').textContent = boss.rank;
+  document.getElementById('boss-hp-current').textContent = currentHp;
+  document.getElementById('boss-hp-max').textContent = boss.hp;
+  document.getElementById('boss-hp-fill').style.width = hpPct + '%';
+
+  // Color hp bar
+  const fill = document.getElementById('boss-hp-fill');
+  if (hpPct > 60) fill.style.background = 'linear-gradient(90deg, #6b1a12, var(--red), var(--red-bright))';
+  else if (hpPct > 30) fill.style.background = 'linear-gradient(90deg, #8b4513, #e67e22, #f39c12)';
+  else fill.style.background = 'linear-gradient(90deg, #333, #555, #777)';
+
+  // Days grid
+  const grid = document.getElementById('boss-days-grid');
+  const days = ['SEG','TER','QUA','QUI','SEX','SAB','DOM'];
+  grid.innerHTML = '';
+  for (let i = 0; i < 7; i++) {
+    const d = document.createElement('div');
+    d.className = 'boss-day' + (state.days.includes(i) ? ' done' : '');
+    d.innerHTML = `<span class="boss-day-label">${days[i]}</span>`;
+    grid.appendChild(d);
+  }
+
+  // Reset info
+  const resetInfo = document.getElementById('boss-reset-info');
+  resetInfo.textContent = `SEMANA ${getWeekNumber()} · ${state.hits}/${maxHits} ATAQUES REALIZADOS`;
+
+  // Attack button
+  const attackBtn = document.getElementById('boss-attack-btn');
+  const todayIdx = (new Date().getDay() + 6) % 7;
+  const alreadyHitToday = state.days.includes(todayIdx);
+
+  if (defeated) {
+    attackBtn.querySelector('.btn-text').textContent = '🏆 BOSS DERROTADO!';
+    attackBtn.disabled = true;
+    attackBtn.style.opacity = '0.5';
+    // Show victory banner
+    const bossCard = document.querySelector('.boss-card');
+    if (!bossCard.querySelector('.boss-victory-banner')) {
+      const banner = document.createElement('div');
+      banner.className = 'boss-victory-banner';
+      banner.innerHTML = `<div class="victory-title">VITÓRIA!</div><small>Boss derrotado esta semana. Volte na próxima.</small>`;
+      bossCard.style.position = 'relative';
+      bossCard.appendChild(banner);
+    }
+  } else if (alreadyHitToday) {
+    attackBtn.querySelector('.btn-text').textContent = '⏰ JÁ ATACOU HOJE';
+    attackBtn.disabled = true;
+    attackBtn.style.opacity = '0.6';
+  } else {
+    attackBtn.querySelector('.btn-text').textContent = '⚔ ATACAR BOSS';
+    attackBtn.disabled = false;
+    attackBtn.style.opacity = '1';
+  }
+}
+
+document.getElementById('boss-attack-btn').addEventListener('click', function () {
+  const boss = getCurrentBoss();
+  const state = getBossState();
+  const todayIdx = (new Date().getDay() + 6) % 7;
+
+  state.hits = (state.hits || 0) + 1;
+  if (!state.days.includes(todayIdx)) state.days.push(todayIdx);
+  saveBossState(state);
+
+  // Damage number float
+  const rect = document.getElementById('boss-figure').getBoundingClientRect();
+  const dmgEl = document.createElement('div');
+  dmgEl.className = 'damage-float';
+  dmgEl.textContent = `-${boss.damage}`;
+  dmgEl.style.left = (rect.left + rect.width / 2) + 'px';
+  dmgEl.style.top = rect.top + 'px';
+  document.body.appendChild(dmgEl);
+  setTimeout(() => dmgEl.remove(), 1300);
+
+  // Hurt animation
+  const fig = document.getElementById('boss-figure');
+  fig.classList.add('hurt');
+  setTimeout(() => fig.classList.remove('hurt'), 400);
+
+  // Screen flash
+  const flash = document.createElement('div');
+  flash.style.cssText = `position:fixed;inset:0;background:rgba(192,57,43,0.07);pointer-events:none;z-index:9990;animation:flashFade 0.4s ease-out forwards`;
+  document.body.appendChild(flash);
+  setTimeout(() => flash.remove(), 400);
+
+  renderBoss();
+});
+
+renderBoss();
+
+/* =============================================
+   DIÁRIO DE TREINO
+   ============================================= */
+
+// Set today's date as default
+const dateInput = document.getElementById('diario-date');
+const today = new Date().toISOString().split('T')[0];
+dateInput.value = today;
+document.getElementById('form-today-date').textContent = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase();
+
+// Duration control
+let durValue = 30;
+document.getElementById('dur-plus').addEventListener('click', () => {
+  durValue = Math.min(300, durValue + 5);
+  document.getElementById('dur-value').textContent = durValue;
+});
+document.getElementById('dur-minus').addEventListener('click', () => {
+  durValue = Math.max(5, durValue - 5);
+  document.getElementById('dur-value').textContent = durValue;
+});
+
+// Tipo buttons
+let selectedTipo = 'Resistência';
+document.querySelectorAll('.tipo-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedTipo = btn.dataset.tipo;
+  });
+});
+
+// Intensity slider
+const intensityRange = document.getElementById('intensity-range');
+const intensityStars = document.getElementById('intensity-stars');
+const intensityText = document.getElementById('intensity-text');
+const INTENSITY_LABELS = ['', 'LEVE', 'MODE
